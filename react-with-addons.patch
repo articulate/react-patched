@@ -1,0 +1,76 @@
+--- react-with-addons.js	2015-11-18 21:09:57.000000000 -0500
++++ react-with-addons-dark-spider-patched.js	2016-01-13 13:56:16.000000000 -0500
+@@ -3793,6 +3793,8 @@
+ React.__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOM;
+ React.__SECRET_DOM_SERVER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOMServer;
+
++React.Injection = _dereq_(65); // _dereq_(#) should point to `ReactInjection`;
++
+ module.exports = React;
+ },{"120":120,"24":24,"40":40,"50":50,"69":69}],27:[function(_dereq_,module,exports){
+ /**
+@@ -19837,6 +19839,45 @@
+  */
+ var nodeNamePattern = /^\s*<(\w+)/;
+
++var nodeNameSpecialCase = {
++  altglyph: 'altGlyph',
++  altglyphdef: 'altGlyphDef',
++  altglyphitem: 'altGlyphItem',
++  animatecolor: 'animateColor',
++  animatemotion: 'animateMotion',
++  animatetransform: 'animateTransform',
++  clippath: 'clipPath',
++  feblend: 'feBlend',
++  fecolormatrix: 'feColorMatrix',
++  fecomponenttransfer: 'feComponentTransfer',
++  fecomposite: 'feComposite',
++  feconvolvematrix: 'feConvolveMatrix',
++  fediffuselighting: 'feDiffuseLighting',
++  fedisplacementmap: 'feDisplacementMap',
++  fedistantlight: 'feDistantLight',
++  feflood: 'feFlood',
++  fefunca: 'feFuncA',
++  fefuncb: 'feFuncB',
++  fefuncg: 'feFuncG',
++  fefuncr: 'feFuncR',
++  fegaussianblur: 'feGaussianBlur',
++  feimage: 'feImage',
++  femerge: 'feMerge',
++  femergenode: 'feMergeNode',
++  femorphology: 'feMorphology',
++  feoffset: 'feOffset',
++  fepointlight: 'fePointLight',
++  fespecularlighting: 'feSpecularLighting',
++  fespotlight: 'feSpotLight',
++  fetile: 'feTile',
++  feturbulence: 'feTurbulence',
++  foreignobject: 'foreignObject',
++  glyphref: 'glyphRef',
++  lineargradient: 'linearGradient',
++  radialgradient: 'radialGradient',
++  textpath: 'textPath'
++};
++
+ /**
+  * Extracts the `nodeName` of the first element in a string of markup.
+  *
+@@ -19845,7 +19886,8 @@
+  */
+ function getNodeName(markup) {
+   var nodeNameMatch = markup.match(nodeNamePattern);
+-  return nodeNameMatch && nodeNameMatch[1].toLowerCase();
++  var nodeName = nodeNameMatch && nodeNameMatch[1].toLowerCase();
++  return nodeNameSpecialCase.hasOwnProperty(nodeName) ? nodeNameSpecialCase[nodeName] : nodeName;
+ }
+
+ /**
+@@ -20075,7 +20117,7 @@
+ // Initialize the SVG elements since we know they'll always need to be wrapped
+ // consistently. If they are created inside a <div> they will be initialized in
+ // the wrong namespace (and will not display).
+-var svgElements = ['circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'text', 'tspan'];
++var svgElements = ['circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'text', 'tspan', 'use'];
+ svgElements.forEach(function (nodeName) {
+   markupWrap[nodeName] = svgWrap;
+   shouldWrap[nodeName] = true;
