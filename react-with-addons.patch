@@ -1,9 +1,9 @@
---- react-with-addons.js	2015-11-18 21:09:57.000000000 -0500
-+++ react-with-addons-dark-spider-patched.js	2016-01-13 13:56:16.000000000 -0500
-@@ -3793,6 +3793,8 @@
+--- react-with-addons.js	2016-01-19 13:49:44.000000000 -0500
++++ react-with-addons-dark-spider-patched.js	2016-03-17 16:30:19.000000000 -0400
+@@ -3791,6 +3791,8 @@
  React.__SECRET_DOM_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOM;
  React.__SECRET_DOM_SERVER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactDOMServer;
-
+ 
 +React.Injection = _dereq_(65); // _dereq_(#) should point to `ReactInjection`;
 +
  module.exports = React;
@@ -12,7 +12,7 @@
 @@ -19837,6 +19839,45 @@
   */
  var nodeNamePattern = /^\s*<(\w+)/;
-
+ 
 +var nodeNameSpecialCase = {
 +  altglyph: 'altGlyph',
 +  altglyphdef: 'altGlyphDef',
@@ -63,14 +63,14 @@
 +  var nodeName = nodeNameMatch && nodeNameMatch[1].toLowerCase();
 +  return nodeNameSpecialCase.hasOwnProperty(nodeName) ? nodeNameSpecialCase[nodeName] : nodeName;
  }
-
+ 
  /**
-@@ -20075,7 +20117,7 @@
+@@ -20077,7 +20119,7 @@
  // Initialize the SVG elements since we know they'll always need to be wrapped
  // consistently. If they are created inside a <div> they will be initialized in
  // the wrong namespace (and will not display).
 -var svgElements = ['circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'text', 'tspan'];
-+var svgElements = ['circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'text', 'tspan', 'use'];
++var svgElements = ['circle', 'clipPath', 'defs', 'ellipse', 'g', 'image', 'line', 'linearGradient', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'text', 'tspan', 'use', 'filter', 'feBlend', 'feColorMatrix', 'feComponentTransfer', 'feComposite', 'feConvolveMatrix', 'feDiffuseLighting', 'feDisplacementMap', 'feDistantLight', 'feFlood', 'feFuncA', 'feFuncB', 'feFuncG', 'feFuncR', 'feGaussianBlur', 'feImage', 'feMerge', 'feMergeNode', 'feMorphology', 'feOffset', 'fePointLight', 'feSpecularLighting', 'feTile', 'feTurbulence'];
  svgElements.forEach(function (nodeName) {
    markupWrap[nodeName] = svgWrap;
    shouldWrap[nodeName] = true;
