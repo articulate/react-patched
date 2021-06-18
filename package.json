@@ -1,0 +1,8 @@
+{
+    "name": "react",
+    "version": "0.14.9",
+    "description": "React, patched for dark spider",
+    "main": "react.js",
+    "repository": "https://github.com/articulate/react-patched"
+  }
+  
