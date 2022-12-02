@@ -1,6 +1,6 @@
 {
     "name": "react",
-    "version": "0.14.9",
+    "version": "0.14.10",
     "description": "React, patched for dark spider",
     "main": "react.js",
     "repository": "https://github.com/articulate/react-patched"
